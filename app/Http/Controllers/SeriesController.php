@@ -8,7 +8,14 @@ class SeriesController extends Controller
 {
     public function index(Request $req){
         $number = (int) $req->query(key : 'id');
-        $series = Serie::query()->orderBy("serie", "asc")->get();
+        $series = \DB::table('series')
+                        ->where([
+                            ['serie', '<>', 'opaa'],
+                            ['createdAt', '>', date('2024-12-31')]
+                            ])
+                        ->orderBy("serie", "asc")
+                        ->select("serie")
+                        ->get();
 
         return view("series.index")->with("series", $series);            
     }
