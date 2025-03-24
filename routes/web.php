@@ -8,7 +8,9 @@ Route::get('/', function () {
     return Inertia::render('welcome');
 })->name('home');
 
-Route::get("/series", [SeriesController::class, "getSeries"]);
+Route::get("/series", [SeriesController::class, "index"]);
+Route::get("/series/create", [SeriesController::class, "create"]);
+Route::post("/series/store", [SeriesController::class, "store"]);
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
